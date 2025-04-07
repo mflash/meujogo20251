@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dulhctkgs0p0y"]
+
+[ext_resource type="PackedScene" uid="uid://dexkro0ruhhnf" path="res://simple_player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://b0l5lbtw40hlc" path="res://score.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node2D"]
+
+[node name="MainScore" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(44, 32)
+
+[node name="SimplePlayer" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(565, 330)
+
+[node name="Sprite2D" parent="SimplePlayer" index="0"]
+scale = Vector2(0.5, 0.5)
+
+[editable path="SimplePlayer"]
