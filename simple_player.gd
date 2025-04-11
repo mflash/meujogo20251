@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
-@export var speed = 400
+@export var speed = 300
+@export var jump_speed = -1000
+@export var gravity = 2500
 @export var rotation_speed = 1.5
 
 var rotation_direction = 0
 #var target : Vector2
 
+@onready var sprite = $PlayerSprite
+#@onready var sprite = get_node("PlayerSprite")
 @onready var target = position
 
 #func _ready() -> void:
@@ -31,13 +35,53 @@ func get_rotation_input():
 func get_8way_input():
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = input_direction * speed
-	print(velocity)
+	#print(velocity)
+
+func animate():
+	if velocity.x > 0:
+		sprite.play("right")
+	elif velocity.x < 0:
+		sprite.play("left")
+	elif velocity.y > 0:
+		sprite.play("down")
+	elif velocity.y < 0:
+		sprite.play("up")
+	else:
+		sprite.stop()
+
+func get_side_input():
+	velocity.x = 0
+	var vel := Input.get_axis("ui_left", "ui_right")
+	var jump := Input.is_action_just_pressed('ui_select')
+
+	if is_on_floor() and jump:
+		velocity.y = jump_speed
+	velocity.x = vel * speed
 	
+func animate_side():
+	if velocity.x > 0:
+		sprite.play("right")
+	elif velocity.x < 0:
+		sprite.play("left")
+	else:
+		sprite.stop()
+		
 func _physics_process(delta: float) -> void:
 	# 1. movimento em 8 direções
 	#get_8way_input()
+	#animate() # anima os frames
 	# Mesma coisa, mas sem colisão!
 	#position += velocity * delta
+	#move_and_slide()
+	# Ex: obtendo normal do objeto colidido
+	#var col := get_last_slide_collision()
+	#if col != null:
+	#	print(col.get_normal())
+		
+	#var col := move_and_collide(velocity*delta)
+	#if col:
+	#	velocity = velocity.bounce(col.get_normal())*10
+	#	move_and_collide(velocity*delta)
 	
 	# 2. gira e avança/retorna
 	# get_rotation_input()
@@ -47,7 +91,14 @@ func _physics_process(delta: float) -> void:
 	# get_mouse_input()
 	
 	# 4. Click to move
-	velocity = position.direction_to(target) * speed
+	#velocity = position.direction_to(target) * speed
 	#look_at(target)
-	if position.distance_to(target) > 5:
-		move_and_slide()
+	#if position.distance_to(target) > 5:
+	#	move_and_slide()
+	
+	# 5. Movimento "plataforma" (lateral + salto)
+	velocity.y += gravity * delta
+	print(velocity.y)
+	get_side_input()
+	animate_side()
+	move_and_slide()
