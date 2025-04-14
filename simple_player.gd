@@ -12,8 +12,10 @@ var rotation_direction = 0
 #@onready var sprite = get_node("PlayerSprite")
 @onready var target = position
 
+@export var box : PackedScene
+
 #func _ready() -> void:
-#	target = position
+#	pass
 
 # 4. Click to move (seta a posição do alvo)
 func _input(event: InputEvent) -> void:
@@ -56,6 +58,11 @@ func get_side_input():
 
 	if is_on_floor() and jump:
 		velocity.y = jump_speed
+		get_tree().call_group("score", "score_jump")
+		var b := box.instantiate()
+		b.position = global_position
+		owner.add_child(b)
+		
 	velocity.x = vel * speed
 	
 func animate_side():
@@ -98,7 +105,7 @@ func _physics_process(delta: float) -> void:
 	
 	# 5. Movimento "plataforma" (lateral + salto)
 	velocity.y += gravity * delta
-	print(velocity.y)
+	#print(velocity.y)
 	get_side_input()
 	animate_side()
 	move_and_slide()
