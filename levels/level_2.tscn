@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://4pupu0kjrhfn"]
+
+[ext_resource type="PackedScene" uid="uid://dexkro0ruhhnf" path="res://simple_player.tscn" id="1_5722l"]
+[ext_resource type="PackedScene" uid="uid://bx3tf0bs8e4vt" path="res://itens/box.tscn" id="2_ilhis"]
+[ext_resource type="Texture2D" uid="uid://bwahhpo8f1twq" path="res://grass/grass1.png" id="3_ep78u"]
+[ext_resource type="Texture2D" uid="uid://ue8pbs8rpww1" path="res://grass/grass2.png" id="4_dfjjl"]
+[ext_resource type="Texture2D" uid="uid://bswa42qlqa4rl" path="res://grass/grass3.png" id="5_at1ld"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(379, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+size = Vector2(282, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kek77"]
+size = Vector2(195, 46)
+
+[node name="Level" type="Node"]
+
+[node name="SimplePlayer" parent="." instance=ExtResource("1_5722l")]
+position = Vector2(231, 134)
+box = ExtResource("2_ilhis")
+
+[node name="Camera2D2" type="Camera2D" parent="SimplePlayer"]
+
+[node name="SceneLimit" type="Marker2D" parent="."]
+position = Vector2(567, 681)
+gizmo_extents = 37.3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(502, 356)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("3_ep78u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(785, 52)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
+texture = ExtResource("3_ep78u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+visible = false
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(921, 550)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+texture = ExtResource("3_ep78u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+visible = false
+position = Vector2(2.5, 3)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(353, 216)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+texture = ExtResource("4_dfjjl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+visible = false
+position = Vector2(-5, 0)
+shape = SubResource("RectangleShape2D_5vw27")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(996, 323)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D4"]
+texture = ExtResource("5_at1ld")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+visible = false
+position = Vector2(3, 0)
+shape = SubResource("RectangleShape2D_kek77")
+
+[editable path="SimplePlayer"]

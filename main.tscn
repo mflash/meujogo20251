@@ -1,106 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://dulhctkgs0p0y"]
+[gd_scene load_steps=5 format=3 uid="uid://dulhctkgs0p0y"]
 
-[ext_resource type="PackedScene" uid="uid://dexkro0ruhhnf" path="res://simple_player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://bx3tf0bs8e4vt" path="res://itens/box.tscn" id="2_5vw27"]
-[ext_resource type="Texture2D" uid="uid://bwahhpo8f1twq" path="res://grass/grass1.png" id="2_lquwl"]
-[ext_resource type="Texture2D" uid="uid://ue8pbs8rpww1" path="res://grass/grass2.png" id="3_7mycd"]
-[ext_resource type="Texture2D" uid="uid://da2snvolxqwmk" path="res://bricks/Darkmetal_Texture.png" id="3_h2yge"]
-[ext_resource type="Texture2D" uid="uid://bswa42qlqa4rl" path="res://grass/grass3.png" id="4_272bh"]
+[ext_resource type="Script" uid="uid://cycx7kgcv7hoy" path="res://game.gd" id="1_kek77"]
+[ext_resource type="PackedScene" uid="uid://dqsdk4ykckubj" path="res://levels/level_1.tscn" id="4_1bvp3"]
 [ext_resource type="FontFile" uid="uid://ctjcqo7347si7" path="res://Xolonium-Regular.ttf" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://xwydlrx6wi0n" path="res://label.gd" id="7_272bh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
-size = Vector2(379, 46)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
-size = Vector2(282, 46)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kek77"]
-size = Vector2(195, 46)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h2yge"]
-bounce = 0.84
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
-size = Vector2(48, 48)
-
 [node name="Main" type="Node2D"]
+script = ExtResource("1_kek77")
 
-[node name="SimplePlayer" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(552, 456)
-box = ExtResource("2_5vw27")
+[node name="GUI" type="CanvasLayer" parent="."]
 
-[node name="Camera2D2" type="Camera2D" parent="SimplePlayer"]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(922, 296)
-collision_layer = 2
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-texture = ExtResource("2_lquwl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-visible = false
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_h2yge")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(395, 578)
-collision_layer = 2
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
-texture = ExtResource("2_lquwl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-visible = false
-position = Vector2(2.5, 3)
-shape = SubResource("RectangleShape2D_h2yge")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(248, 391)
-collision_layer = 2
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
-texture = ExtResource("3_7mycd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-visible = false
-position = Vector2(-5, 0)
-shape = SubResource("RectangleShape2D_5vw27")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(717, 443)
-collision_layer = 2
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D4"]
-texture = ExtResource("4_272bh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-visible = false
-position = Vector2(3, 0)
-shape = SubResource("RectangleShape2D_kek77")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(768, 60)
-collision_mask = 3
-physics_material_override = SubResource("PhysicsMaterial_h2yge")
-freeze = true
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("3_h2yge")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("RectangleShape2D_1bvp3")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer" groups=["score"]]
+[node name="Label" type="Label" parent="GUI" groups=["score"]]
 offset_left = 21.0
 offset_top = 17.0
 offset_right = 61.0
@@ -113,6 +23,6 @@ script = ExtResource("7_272bh")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="timeout" from="Timer" to="CanvasLayer/Label" method="_on_timer_timeout"]
+[node name="Level" parent="." instance=ExtResource("4_1bvp3")]
 
-[editable path="SimplePlayer"]
+[connection signal="timeout" from="Timer" to="GUI/Label" method="_on_timer_timeout"]
