@@ -11,6 +11,7 @@ var rotation_direction = 0
 @onready var sprite = $PlayerSprite
 #@onready var sprite = get_node("PlayerSprite")
 @onready var target = position
+@onready var player : AudioStreamPlayer = $Jump
 
 @export var box : PackedScene
 
@@ -54,7 +55,7 @@ func animate():
 func get_side_input():
 	velocity.x = 0
 	var vel := Input.get_axis("ui_left", "ui_right")
-	var jump := Input.is_action_just_pressed('ui_select')
+	var jump := Input.is_action_pressed('ui_select')
 
 	if is_on_floor() and jump:
 		velocity.y = jump_speed
@@ -62,6 +63,11 @@ func get_side_input():
 		var b := box.instantiate()
 		b.position = global_position
 		owner.add_child(b)
+		# Opcional: espera terminar a reprodução
+		# anterior
+		if not player.playing:
+			player.play()
+		
 		
 	velocity.x = vel * speed
 	

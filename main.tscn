@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dulhctkgs0p0y"]
+[gd_scene load_steps=6 format=3 uid="uid://dulhctkgs0p0y"]
 
 [ext_resource type="Script" uid="uid://cycx7kgcv7hoy" path="res://game.gd" id="1_kek77"]
 [ext_resource type="PackedScene" uid="uid://dqsdk4ykckubj" path="res://levels/level_1.tscn" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://343yi7nta6j5" path="res://SFX/Summer_Park.ogg" id="4_lquwl"]
 [ext_resource type="FontFile" uid="uid://ctjcqo7347si7" path="res://Xolonium-Regular.ttf" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://xwydlrx6wi0n" path="res://label.gd" id="7_272bh"]
 
@@ -19,6 +20,11 @@ theme_override_fonts/font = ExtResource("6_7mycd")
 theme_override_font_sizes/font_size = 30
 text = "Score:"
 script = ExtResource("7_272bh")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lquwl")
+autoplay = true
+bus = &"Music"
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://dexkro0ruhhnf"]
+[gd_scene load_steps=22 format=3 uid="uid://dexkro0ruhhnf"]
 
 [ext_resource type="Script" uid="uid://dn06enf1bt7cq" path="res://simple_player.gd" id="1_wtip5"]
 [ext_resource type="Texture2D" uid="uid://c87gnhs4olwqx" path="res://char.png" id="2_wtip5"]
+[ext_resource type="AudioStream" uid="uid://csuap0h8u8obk" path="res://SFX/jump1.ogg" id="3_alr1p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wtip5"]
 atlas = ExtResource("2_wtip5")
@@ -153,3 +154,7 @@ animation = &"left"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 1)
 shape = SubResource("RectangleShape2D_wtip5")
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_alr1p")
+bus = &"SFX"

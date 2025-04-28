@@ -2,6 +2,7 @@ extends Node2D
 
 var player : CharacterBody2D
 var scene_limit : Marker2D
+@onready var music : AudioStreamPlayer = $Music
 
 var current_scene = null
 
@@ -23,6 +24,30 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_key_pressed(KEY_X):
 		call_deferred("goto_scene", "res://levels/level_2.tscn")
+
+	if Input.is_action_just_pressed("toggle_music"):
+		if music.playing:
+			music.stop()
+		else:
+			music.play()
+			
+	if Input.is_action_just_pressed("increase_volume"):
+		var vol := AudioServer.get_bus_volume_linear(0)
+		#print(vol)
+		vol += 0.1;
+		AudioServer.set_bus_volume_linear(0, vol);		
+	if Input.is_action_just_pressed("decrease_volume"):
+		var vol := AudioServer.get_bus_volume_linear(0)
+		vol -= 0.1
+		AudioServer.set_bus_volume_linear(0, vol);		
+
+	if Input.is_action_just_pressed("filter_music"):
+		var filtro : AudioEffectLowPassFilter = AudioServer.get_bus_effect(1, 0)
+		if filtro.cutoff_hz == 500:
+			filtro.cutoff_hz = 10000
+		else:
+			filtro.cutoff_hz = 500
+		
 
 func goto_scene(path: String):
 	var total_filhos = get_child_count()
